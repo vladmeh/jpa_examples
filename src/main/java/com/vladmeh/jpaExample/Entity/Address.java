@@ -1,17 +1,13 @@
 package com.vladmeh.jpaExample.Entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "address")
 public class Address {
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     private String street;
     private String city;
@@ -19,11 +15,21 @@ public class Address {
     private String country;
     private String postcode;
 
-    public Integer getId() {
+    public Address() {
+    }
+
+    public Address(String street, String city, String country, String postcode) {
+        this.street = street;
+        this.city = city;
+        this.country = country;
+        this.postcode = postcode;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public Address setId(Integer id) {
+    public Address setId(Long id) {
         this.id = id;
         return this;
     }
@@ -71,5 +77,13 @@ public class Address {
     public Address setPostcode(String postcode) {
         this.postcode = postcode;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Address[id=%d, street='%s', city='%s', country='%s', postcode='%s']",
+                id, street, city, country, postcode
+        );
     }
 }
